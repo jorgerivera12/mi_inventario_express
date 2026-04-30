@@ -1,0 +1,46 @@
+<div class="container">
+  <div class="header-actions">
+    <h1>Productos</h1>
+    <a href="/productos/nuevo" class="btn btn-primary">+ Nuevo Producto</a>
+  </div>
+
+  {{#if productos.length}}
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Imagen</th>
+        <th>Nombre</th>
+        <th>Categoría</th>
+        <th>Precio</th>
+        <th>Stock</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each productos}}
+      <tr>
+        <td>
+          {{#if imagen}}
+            <img src="/uploads/{{imagen}}" alt="{{nombre}}" class="img-thumb">
+          {{else}}
+            <span class="no-img">Sin imagen</span>
+          {{/if}}
+        </td>
+        <td>{{nombre}}</td>
+        <td>{{categoria}}</td>
+        <td>${{precio}}</td>
+        <td>{{stock}}</td>
+        <td class="acciones">
+          <a href="/productos/editar/{{_id}}" class="btn btn-warning">Editar</a>
+          <form action="/productos/eliminar/{{_id}}" method="POST" onsubmit="return confirm('¿Eliminar producto?')">
+            <button type="submit" class="btn btn-danger">Eliminar</button>
+          </form>
+        </td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+  {{else}}
+  <p class="empty">No hay productos registrados.</p>
+  {{/if}}
+</div>

@@ -1,12 +1,19 @@
+require('dotenv').config();
 const express = require('express');
 const { engine } = require('express-handlebars');
 const { createServer } = require('http');
 const { Server } = require('socket.io');
+const mongoose = require('mongoose');
 const path = require('path');
 
 const app = express();
 const httpServer = createServer(app);
 const io = new Server(httpServer);
+
+// MongoDB
+mongoose.connect(process.env.MONGO_URI)
+  .then(() => console.log('MongoDB conectado'))
+  .catch(err => console.error('Error MongoDB:', err));
 
 // Handlebars
 app.engine('hbs', engine({ extname: '.hbs', defaultLayout: 'main' }));
@@ -21,6 +28,7 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Rutas
 app.use('/', require('./routes/index'));
+app.use('/productos', require('./routes/productos'));
 
 // Socket.io
 io.on('connection', (socket) => {

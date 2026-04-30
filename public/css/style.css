@@ -1,2 +1,44 @@
 * { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: sans-serif; padding: 1rem; }
+body { font-family: sans-serif; background: #f4f4f4; color: #333; }
+
+.container { max-width: 1000px; margin: 2rem auto; padding: 0 1rem; }
+
+.header-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+/* Tabla */
+.table { width: 100%; border-collapse: collapse; background: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,.1); }
+.table th, .table td { padding: .75rem 1rem; text-align: left; border-bottom: 1px solid #eee; }
+.table th { background: #343a40; color: #fff; }
+.table tr:hover td { background: #f8f9fa; }
+
+.img-thumb { width: 60px; height: 60px; object-fit: cover; border-radius: 4px; }
+.no-img { color: #aaa; font-size: .85rem; }
+.empty { text-align: center; padding: 2rem; color: #888; }
+
+.acciones { display: flex; gap: .5rem; }
+
+/* Formulario */
+.form { background: #fff; padding: 2rem; border-radius: 8px; box-shadow: 0 1px 4px rgba(0,0,0,.1); max-width: 600px; }
+.form h1 { margin-bottom: 1.5rem; }
+.form-group { margin-bottom: 1rem; }
+.form-group label { display: block; font-weight: 600; margin-bottom: .3rem; }
+.form-group input, .form-group textarea, .form-group select {
+  width: 100%; padding: .5rem .75rem; border: 1px solid #ccc; border-radius: 4px; font-size: 1rem;
+}
+.form-group textarea { resize: vertical; }
+.form-actions { display: flex; gap: .75rem; margin-top: 1.5rem; }
+
+/* Botones */
+.btn { padding: .5rem 1rem; border: none; border-radius: 4px; cursor: pointer; text-decoration: none; font-size: .9rem; display: inline-block; }
+.btn-primary { background: #007bff; color: #fff; }
+.btn-primary:hover { background: #0056b3; }
+.btn-warning { background: #ffc107; color: #333; }
+.btn-warning:hover { background: #e0a800; }
+.btn-danger { background: #dc3545; color: #fff; }
+.btn-danger:hover { background: #b02a37; }
+.btn:not([class*="btn-"]) { background: #6c757d; color: #fff; }
