@@ -54,3 +54,18 @@ npm start
 ```
 
 El servidor corre en `http://localhost:3000`
+
+## Carga de imágenes
+
+Las imágenes de productos se gestionan con **Multer** desde `middleware/upload.js`.
+
+| Parámetro | Valor |
+|---|---|
+| Tipos permitidos | `.jpg`, `.jpeg`, `.png`, `.webp` |
+| Tamaño máximo | 2 MB |
+| Carpeta de destino | `uploads/` |
+| Nombre del archivo | timestamp + extensión original |
+
+La validación aplica tanto a la extensión del archivo como al `mimetype`, evitando que un archivo malicioso se disfrace con una extensión de imagen.
+
+Si la imagen no cumple las reglas, el formulario se vuelve a renderizar con un mensaje de error sin perder los datos escritos.

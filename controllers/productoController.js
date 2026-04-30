@@ -10,9 +10,12 @@ exports.formNuevo = (req, res) => {
 };
 
 exports.crear = async (req, res) => {
-  const { nombre, descripcion, precio, stock, categoria } = req.body;
+  if (req.uploadError) {
+    return res.render('productos/nuevo', { title: 'Nuevo Producto', error: req.uploadError, body: req.body });
+  }
+  const { nombre, descripcion, precio } = req.body;
   const imagen = req.file ? req.file.filename : '';
-  await Producto.create({ nombre, descripcion, precio, stock, categoria, imagen });
+  await Producto.create({ nombre, descripcion, precio, imagen });
   res.redirect('/productos');
 };
 
@@ -23,8 +26,12 @@ exports.formEditar = async (req, res) => {
 };
 
 exports.actualizar = async (req, res) => {
-  const { nombre, descripcion, precio, stock, categoria } = req.body;
-  const data = { nombre, descripcion, precio, stock, categoria };
+  if (req.uploadError) {
+    const producto = await Producto.findById(req.params.id).lean();
+    return res.render('productos/editar', { title: 'Editar Producto', producto, error: req.uploadError });
+  }
+  const { nombre, descripcion, precio } = req.body;
+  const data = { nombre, descripcion, precio };
   if (req.file) data.imagen = req.file.filename;
   await Producto.findByIdAndUpdate(req.params.id, data);
   res.redirect('/productos');

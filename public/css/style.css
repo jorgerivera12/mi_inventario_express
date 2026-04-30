@@ -22,6 +22,8 @@ body { font-family: sans-serif; background: #f4f4f4; color: #333; }
 
 .acciones { display: flex; gap: .5rem; }
 
+.alert-error { background: #f8d7da; color: #842029; border: 1px solid #f5c2c7; padding: .75rem 1rem; border-radius: 4px; margin-bottom: 1rem; }
+
 /* Formulario */
 .form { background: #fff; padding: 2rem; border-radius: 8px; box-shadow: 0 1px 4px rgba(0,0,0,.1); max-width: 600px; }
 .form h1 { margin-bottom: 1.5rem; }

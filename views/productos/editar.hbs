@@ -1,5 +1,6 @@
 <div class="container">
   <h1>Editar Producto</h1>
+  {{#if error}}<p class="alert-error">{{error}}</p>{{/if}}
   <form action="/productos/actualizar/{{producto._id}}" method="POST" enctype="multipart/form-data" class="form">
     <div class="form-group">
       <label>Nombre *</label>
