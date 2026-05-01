@@ -1,6 +1,8 @@
 const router = require('express').Router();
-const indexController = require('../controllers/indexController');
+const ctrl = require('../controllers/indexController');
+const autenticado = require('../middleware/autenticado');
 
-router.get('/', indexController.index);
+router.get('/',       autenticado, ctrl.index);
+router.get('/perfil', autenticado, ctrl.perfil);
 
 module.exports = router;
