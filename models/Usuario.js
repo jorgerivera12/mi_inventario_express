@@ -22,10 +22,9 @@ const usuarioSchema = new mongoose.Schema({
 }, { timestamps: true });
 
 // Hash antes de guardar
-usuarioSchema.pre('save', async function (next) {
-  if (!this.isModified('password')) return next();
+usuarioSchema.pre('save', async function () {
+  if (!this.isModified('password')) return;
   this.password = await bcrypt.hash(this.password, 10);
-  next();
 });
 
 // Comparar contraseña

@@ -1,46 +1,51 @@
 <div class="container">
-  <div class="header-actions">
-    <h1>Productos</h1>
-    <a href="/productos/nuevo" class="btn btn-primary">+ Nuevo Producto</a>
+
+  <div class="page-header">
+    <div>
+      <h1>Productos</h1>
+      <p>Gestiona el inventario de tu tienda</p>
+    </div>
+    <a href="/productos/nuevo" class="btn btn-primary">+ Nuevo producto</a>
   </div>
 
   {{#if productos.length}}
-  <table class="table">
-    <thead>
-      <tr>
-        <th>Imagen</th>
-        <th>Nombre</th>
-        <th>Categoría</th>
-        <th>Precio</th>
-        <th>Stock</th>
-        <th>Acciones</th>
-      </tr>
-    </thead>
-    <tbody>
-      {{#each productos}}
-      <tr>
-        <td>
-          {{#if imagen}}
-            <img src="/uploads/{{imagen}}" alt="{{nombre}}" class="img-thumb">
-          {{else}}
-            <span class="no-img">Sin imagen</span>
-          {{/if}}
-        </td>
-        <td>{{nombre}}</td>
-        <td>{{categoria}}</td>
-        <td>${{precio}}</td>
-        <td>{{stock}}</td>
-        <td class="acciones">
-          <a href="/productos/editar/{{_id}}" class="btn btn-warning">Editar</a>
-          <form action="/productos/eliminar/{{_id}}" method="POST" onsubmit="return confirm('¿Eliminar producto?')">
-            <button type="submit" class="btn btn-danger">Eliminar</button>
-          </form>
-        </td>
-      </tr>
-      {{/each}}
-    </tbody>
-  </table>
+  <div class="products-grid">
+    {{#each productos}}
+    <div class="product-card">
+
+      {{#if imagen}}
+        <img src="/uploads/{{imagen}}" alt="{{nombre}}" class="card-img">
+      {{else}}
+        <div class="card-img-placeholder">Sin imagen</div>
+      {{/if}}
+
+      <div class="card-body">
+        <p class="card-title">{{nombre}}</p>
+        <p class="card-desc">{{descripcion}}</p>
+        <p class="card-price">${{precio}}</p>
+      </div>
+
+      <div class="card-actions">
+        <a href="/productos/editar/{{_id}}" class="btn btn-warning btn-sm">Editar</a>
+        <form action="/productos/eliminar/{{_id}}" method="POST"
+              onsubmit="return confirm('¿Eliminar «{{nombre}}»?')">
+          <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+        </form>
+      </div>
+
+    </div>
+    {{/each}}
+  </div>
+
   {{else}}
-  <p class="empty">No hay productos registrados.</p>
+  <div class="empty-state">
+    <svg width="64" height="64" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round"
+        d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z"/>
+    </svg>
+    <p>No hay productos registrados.</p>
+    <a href="/productos/nuevo" class="btn btn-primary" style="margin-top:1rem">Agregar el primero</a>
+  </div>
   {{/if}}
+
 </div>

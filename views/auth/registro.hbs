@@ -1,30 +1,40 @@
-<div class="auth-container">
-  <h1>Registro</h1>
-  {{#if errores}}
-  <ul class="alert-errores">
-    {{#each errores}}<li>{{msg}}</li>{{/each}}
-  </ul>
-  {{/if}}
-  <form action="/registro" method="POST" class="form">
-    <div class="form-group">
-      <label>Nombre</label>
-      <input type="text" name="nombre" value="{{body.nombre}}" autofocus>
+<div class="auth-page">
+  <div class="auth-card">
+
+    <div class="auth-logo">
+      <h2>Mi<span>Inventario</span></h2>
+      <p>Crea tu cuenta para empezar</p>
     </div>
-    <div class="form-group">
-      <label>Email</label>
-      <input type="email" name="email" value="{{body.email}}">
-    </div>
-    <div class="form-group">
-      <label>Contraseña</label>
-      <input type="password" name="password" minlength="6">
-    </div>
-    <div class="form-group">
-      <label>Confirmar contraseña</label>
-      <input type="password" name="confirmar" minlength="6">
-    </div>
-    <div class="form-actions">
-      <button type="submit" class="btn btn-primary">Crear cuenta</button>
-    </div>
+
+    {{> errores}}
+
+    <form action="/registro" method="POST">
+      <div class="form-group">
+        <label>Nombre completo</label>
+        <input type="text" name="nombre" value="{{body.nombre}}"
+               placeholder="Tu nombre" autofocus>
+      </div>
+      <div class="form-group">
+        <label>Correo electrónico</label>
+        <input type="email" name="email" value="{{body.email}}"
+               placeholder="correo@ejemplo.com">
+      </div>
+      <div class="form-group">
+        <label>Contraseña</label>
+        <input type="password" name="password" placeholder="Mínimo 6 caracteres">
+        <p class="form-hint">Debe tener al menos 6 caracteres.</p>
+      </div>
+      <div class="form-group">
+        <label>Confirmar contraseña</label>
+        <input type="password" name="confirmar" placeholder="Repite la contraseña">
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-full" style="margin-top:.5rem">
+        Crear cuenta
+      </button>
+    </form>
+
+    <hr class="divider">
     <p class="auth-link">¿Ya tienes cuenta? <a href="/login">Inicia sesión</a></p>
-  </form>
+  </div>
 </div>

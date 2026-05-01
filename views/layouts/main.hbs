@@ -3,16 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{{title}}</title>
+  <title>{{title}} — Mi Inventario</title>
   <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
+
   {{#if usuario}}
   <nav class="navbar">
-    <a href="/productos" class="nav-brand">Mi Inventario</a>
+    <a href="/productos" class="nav-brand">Mi<span>Inventario</span></a>
+    <div class="nav-links">
+      <a href="/productos" class="active">Productos</a>
+    </div>
     <div class="nav-user">
-      <span>Hola, {{usuario}}</span>
-      <a href="/logout" class="btn btn-danger">Cerrar sesión</a>
+      <span class="welcome">Hola, <strong>{{usuario}}</strong></span>
+      <a href="/logout" class="btn btn-danger btn-sm">Salir</a>
     </div>
   </nav>
   {{/if}}
