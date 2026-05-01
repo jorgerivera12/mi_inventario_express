@@ -17,7 +17,14 @@ mongoose.connect(process.env.MONGO_URI)
   .catch(err => console.error('Error MongoDB:', err));
 
 // Handlebars
-app.engine('hbs', engine({ extname: '.hbs', defaultLayout: 'main' }));
+app.engine('hbs', engine({
+  extname: '.hbs',
+  defaultLayout: 'main',
+  helpers: {
+    eq:         (a, b)      => a === b,
+    startsWith: (str, pre)  => typeof str === 'string' && str.startsWith(pre)
+  }
+}));
 app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, 'views'));
 
@@ -32,12 +39,13 @@ app.use(session({
   secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: false,
-  cookie: { maxAge: 1000 * 60 * 60 * 24 } // 24 horas
+  cookie: { maxAge: 1000 * 60 * 60 * 24 }
 }));
 
-// Exponer usuario a todas las vistas
+// Variables globales para vistas
 app.use((req, res, next) => {
-  res.locals.usuario = req.session.usuarioNombre || null;
+  res.locals.usuario     = req.session.usuarioNombre || null;
+  res.locals.currentPath = req.path;
   next();
 });
 
