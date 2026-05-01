@@ -1,3 +1,4 @@
+const { validationResult } = require('express-validator');
 const Producto = require('../models/Producto');
 
 exports.listar = async (req, res) => {
@@ -11,8 +12,22 @@ exports.formNuevo = (req, res) => {
 
 exports.crear = async (req, res) => {
   if (req.uploadError) {
-    return res.render('productos/nuevo', { title: 'Nuevo Producto', error: req.uploadError, body: req.body });
+    return res.render('productos/nuevo', {
+      title: 'Nuevo Producto',
+      errores: [{ msg: req.uploadError }],
+      body: req.body
+    });
   }
+
+  const errores = validationResult(req);
+  if (!errores.isEmpty()) {
+    return res.render('productos/nuevo', {
+      title: 'Nuevo Producto',
+      errores: errores.array(),
+      body: req.body
+    });
+  }
+
   const { nombre, descripcion, precio } = req.body;
   const imagen = req.file ? req.file.filename : '';
   await Producto.create({ nombre, descripcion, precio, imagen });
@@ -28,8 +43,23 @@ exports.formEditar = async (req, res) => {
 exports.actualizar = async (req, res) => {
   if (req.uploadError) {
     const producto = await Producto.findById(req.params.id).lean();
-    return res.render('productos/editar', { title: 'Editar Producto', producto, error: req.uploadError });
+    return res.render('productos/editar', {
+      title: 'Editar Producto',
+      producto,
+      errores: [{ msg: req.uploadError }]
+    });
   }
+
+  const errores = validationResult(req);
+  if (!errores.isEmpty()) {
+    const producto = await Producto.findById(req.params.id).lean();
+    return res.render('productos/editar', {
+      title: 'Editar Producto',
+      producto,
+      errores: errores.array()
+    });
+  }
+
   const { nombre, descripcion, precio } = req.body;
   const data = { nombre, descripcion, precio };
   if (req.file) data.imagen = req.file.filename;

@@ -4,6 +4,7 @@ const { engine } = require('express-handlebars');
 const { createServer } = require('http');
 const { Server } = require('socket.io');
 const mongoose = require('mongoose');
+const session = require('express-session');
 const path = require('path');
 
 const app = express();
@@ -26,9 +27,24 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
+// Sesiones
+app.use(session({
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: false,
+  cookie: { maxAge: 1000 * 60 * 60 * 24 } // 24 horas
+}));
+
+// Exponer usuario a todas las vistas
+app.use((req, res, next) => {
+  res.locals.usuario = req.session.usuarioNombre || null;
+  next();
+});
+
 // Rutas
 app.use('/', require('./routes/index'));
-app.use('/productos', require('./routes/productos'));
+app.use('/', require('./routes/auth'));
+app.use('/productos', require('./middleware/autenticado'), require('./routes/productos'));
 
 // Socket.io
 io.on('connection', (socket) => {

@@ -7,7 +7,18 @@
   <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
+  {{#if usuario}}
+  <nav class="navbar">
+    <a href="/productos" class="nav-brand">Mi Inventario</a>
+    <div class="nav-user">
+      <span>Hola, {{usuario}}</span>
+      <a href="/logout" class="btn btn-danger">Cerrar sesión</a>
+    </div>
+  </nav>
+  {{/if}}
+
   {{{body}}}
+
   <script src="/socket.io/socket.io.js"></script>
   <script src="/js/main.js"></script>
 </body>

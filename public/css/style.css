@@ -22,7 +22,8 @@ body { font-family: sans-serif; background: #f4f4f4; color: #333; }
 
 .acciones { display: flex; gap: .5rem; }
 
-.alert-error { background: #f8d7da; color: #842029; border: 1px solid #f5c2c7; padding: .75rem 1rem; border-radius: 4px; margin-bottom: 1rem; }
+.alert-error  { background: #f8d7da; color: #842029; border: 1px solid #f5c2c7; padding: .75rem 1rem; border-radius: 4px; margin-bottom: 1rem; }
+.alert-errores { background: #f8d7da; color: #842029; border: 1px solid #f5c2c7; padding: .75rem 1rem .75rem 2rem; border-radius: 4px; margin-bottom: 1rem; }
 
 /* Formulario */
 .form { background: #fff; padding: 2rem; border-radius: 8px; box-shadow: 0 1px 4px rgba(0,0,0,.1); max-width: 600px; }
@@ -34,6 +35,18 @@ body { font-family: sans-serif; background: #f4f4f4; color: #333; }
 }
 .form-group textarea { resize: vertical; }
 .form-actions { display: flex; gap: .75rem; margin-top: 1.5rem; }
+
+/* Navbar */
+.navbar { display: flex; justify-content: space-between; align-items: center; background: #343a40; color: #fff; padding: .75rem 1.5rem; }
+.nav-brand { color: #fff; text-decoration: none; font-weight: 700; font-size: 1.1rem; }
+.nav-user { display: flex; align-items: center; gap: 1rem; }
+.nav-user span { font-size: .9rem; }
+
+/* Auth */
+.auth-container { max-width: 420px; margin: 4rem auto; padding: 0 1rem; }
+.auth-container h1 { margin-bottom: 1.5rem; }
+.auth-link { margin-top: 1rem; font-size: .9rem; color: #555; }
+.auth-link a { color: #007bff; }
 
 /* Botones */
 .btn { padding: .5rem 1rem; border: none; border-radius: 4px; cursor: pointer; text-decoration: none; font-size: .9rem; display: inline-block; }
