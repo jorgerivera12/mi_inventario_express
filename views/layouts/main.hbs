@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{{title}} — Mi Inventario</title>
+  <title>{{title}} — MiInventarioExpress</title>
   <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
@@ -18,12 +18,26 @@
   <aside class="sidebar" id="sidebar">
 
     <div class="sidebar-brand">
-      <a href="/">Mi<span>Inventario</span></a>
-      <button class="sidebar-close" id="sidebarClose" aria-label="Cerrar menú">
-        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
-        </svg>
-      </button>
+      <div class="sidebar-brand-top">
+        <a href="/">MiInventario<span>Express</span></a>
+        <button class="sidebar-close" id="sidebarClose" aria-label="Cerrar menú">
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+      <div class="sidebar-user">
+        <div class="sidebar-user-avatar">
+          <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z"/>
+          </svg>
+        </div>
+        <div class="sidebar-user-info">
+          <span class="sidebar-user-name">{{usuario}}</span>
+          <span class="sidebar-user-email">{{usuarioEmail}}</span>
+        </div>
+      </div>
     </div>
 
     <nav class="sidebar-nav">
@@ -85,6 +99,9 @@
     </main>
 
   </div>
+
+  {{> chat nombre=usuario}}
+
 </div>
 
 {{else}}
@@ -93,5 +110,6 @@
 
   <script src="/socket.io/socket.io.js"></script>
   <script src="/js/main.js"></script>
+  {{#if usuario}}<script src="/js/chat.js"></script>{{/if}}
 </body>
 </html>

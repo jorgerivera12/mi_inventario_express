@@ -50,6 +50,7 @@ exports.login = async (req, res) => {
 
   req.session.usuarioId = usuario._id;
   req.session.usuarioNombre = usuario.nombre;
+  req.session.usuarioEmail = usuario.email;
   res.redirect('/productos');
 };
 

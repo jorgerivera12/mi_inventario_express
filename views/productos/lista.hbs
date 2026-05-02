@@ -9,32 +9,50 @@
   </div>
 
   {{#if productos.length}}
-  <div class="products-grid">
-    {{#each productos}}
-    <div class="product-card">
-
-      {{#if imagen}}
-        <img src="/uploads/{{imagen}}" alt="{{nombre}}" class="card-img">
-      {{else}}
-        <div class="card-img-placeholder">Sin imagen</div>
-      {{/if}}
-
-      <div class="card-body">
-        <p class="card-title">{{nombre}}</p>
-        <p class="card-desc">{{descripcion}}</p>
-        <p class="card-price">${{precio}}</p>
-      </div>
-
-      <div class="card-actions">
-        <a href="/productos/editar/{{_id}}" class="btn btn-warning btn-sm">Editar</a>
-        <form action="/productos/eliminar/{{_id}}" method="POST"
-              onsubmit="return confirm('¿Eliminar «{{nombre}}»?')">
-          <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
-        </form>
-      </div>
-
+  <div class="dashboard-section">
+    <div class="table-wrapper">
+      <table class="table">
+        <thead>
+          <tr>
+            <th style="width:72px">Imagen</th>
+            <th>Nombre</th>
+            <th>Descripción</th>
+            <th>Precio</th>
+            <th style="width:140px">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each productos}}
+          <tr>
+            <td>
+              {{#if imagen}}
+                <img src="/uploads/{{imagen}}" alt="{{nombre}}" class="img-thumb">
+              {{else}}
+                <div class="img-thumb-placeholder">
+                  <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                      d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"/>
+                  </svg>
+                </div>
+              {{/if}}
+            </td>
+            <td><strong>{{nombre}}</strong></td>
+            <td class="td-desc">{{descripcion}}</td>
+            <td><span class="price-tag">${{precio}}</span></td>
+            <td>
+              <div class="acciones">
+                <a href="/productos/editar/{{_id}}" class="btn btn-warning btn-sm">Editar</a>
+                <form action="/productos/eliminar/{{_id}}" method="POST"
+                      onsubmit="return confirm('¿Eliminar «{{nombre}}»?')">
+                  <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                </form>
+              </div>
+            </td>
+          </tr>
+          {{/each}}
+        </tbody>
+      </table>
     </div>
-    {{/each}}
   </div>
 
   {{else}}
