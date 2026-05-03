@@ -2,26 +2,137 @@
 
 Sistema de inventario desarrollado con Node.js, Express y MongoDB siguiendo el patrón MVC.
 
-## Estructura del proyecto
+---
+
+## Datos del Estudiante
+
+| Campo | Detalle |
+|---|---|
+| Nombre | Jorge Rivera |
+| Correo | jriveray@est.ups.edu.ec |
+| Materia | Aplicaciones Web |
+| Ciclo | Cuarto Ciclo |
+| Institución | Universidad Politécnica Salesiana (UPS) |
+
+## Repositorio
+
+[https://github.com/jorgerivera12/mi_inventario_express.git](https://github.com/jorgerivera12/mi_inventario_express.git)
+
+---
+
+## Funcionalidades Implementadas
+
+### Autenticación de Usuarios
+- Registro de nuevos usuarios con validación de campos
+- Inicio de sesión con verificación de contraseña (bcrypt)
+- Cierre de sesión
+- Protección de rutas mediante middleware de autenticación
+
+### Gestión de Productos (CRUD)
+- Listar todos los productos del inventario
+- Crear nuevo producto con nombre, descripción, precio, cantidad e imagen
+- Editar y actualizar datos de un producto existente
+- Eliminar producto
+
+### Subida de Imágenes
+- Carga de imágenes por producto con Multer
+- Validación de tipo de archivo (`.jpg`, `.jpeg`, `.png`, `.webp`) y tamaño máximo de 2 MB
+- Almacenamiento en la carpeta `uploads/`
+
+### Perfil de Usuario
+- Ver datos del perfil
+- Actualizar contraseña
+
+### Chat en Tiempo Real
+- Chat privado entre usuarios registrados mediante Socket.io
+- Historial de conversaciones por usuario
+- Lista de usuarios conectados en tiempo real
+
+### Validación de Formularios
+- Validación del lado del servidor con express-validator
+- Mensajes de error sin perder los datos ingresados
+
+---
+
+## Instrucciones de Uso
+
+### Requisitos previos
+
+- Node.js v18 o superior
+- MongoDB corriendo localmente o URI de MongoDB Atlas
+
+### 1. Clonar el repositorio
+
+```bash
+git clone https://github.com/jorgerivera12/mi_inventario_express.git
+cd mi_inventario_express
+```
+
+### 2. Instalar dependencias
+
+```bash
+npm install
+```
+
+### 3. Configurar variables de entorno
+
+Copia el archivo de ejemplo y completa los valores:
+
+```bash
+cp .env.example .env
+```
+
+Edita `.env` con tus datos:
+
+```
+PORT=3000
+MONGODB_URI=mongodb://localhost:27017/mi_inventario
+SESSION_SECRET=tu_clave_secreta
+```
+
+### 4. Ejecutar la aplicación
+
+```bash
+# Desarrollo (con recarga automática)
+npm run dev
+
+# Producción
+npm start
+```
+
+El servidor estará disponible en `http://localhost:3000`
+
+### 5. Uso básico
+
+1. Accede a `http://localhost:3000/auth/registro` y crea una cuenta.
+2. Inicia sesión en `http://localhost:3000/auth/login`.
+3. Desde el dashboard puedes agregar, editar y eliminar productos.
+4. Usa el chat para comunicarte con otros usuarios registrados.
+
+---
+
+## Estructura del Proyecto
 
 ```
 mi_inventario_express/
 ├── app.js               ← servidor Express + Socket.io
 ├── models/              ← M (Model) → esquemas de Mongoose
 ├── routes/              ← rutas HTTP
-│   └── index.js
+│   ├── index.js
+│   ├── auth.js
+│   └── productos.js
 ├── controllers/         ← lógica del CRUD y login
-│   └── indexController.js
+│   ├── indexController.js
+│   ├── authController.js
+│   └── productoController.js
+├── middleware/          ← autenticación, validaciones, upload
 ├── views/               ← V (View) → plantillas Handlebars (.hbs)
 │   ├── layouts/
 │   │   └── main.hbs
-│   ├── partials/
-│   └── index.hbs
+│   └── partials/
 ├── public/              ← archivos estáticos (CSS, JS del cliente)
 │   ├── css/
-│   │   └── style.css
 │   └── js/
-│       └── main.js
 └── uploads/             ← imágenes subidas por el usuario
 ```
 
@@ -36,36 +147,3 @@ mi_inventario_express/
 - **multer** — subida de archivos
 - **express-validator** — validación de formularios
 - **dotenv** — variables de entorno
-
-## Instalación
-
-```bash
-npm install
-```
-
-## Uso
-
-```bash
-# Desarrollo (con recarga automática)
-npm run dev
-
-# Producción
-npm start
-```
-
-El servidor corre en `http://localhost:3000`
-
-## Carga de imágenes
-
-Las imágenes de productos se gestionan con **Multer** desde `middleware/upload.js`.
-
-| Parámetro | Valor |
-|---|---|
-| Tipos permitidos | `.jpg`, `.jpeg`, `.png`, `.webp` |
-| Tamaño máximo | 2 MB |
-| Carpeta de destino | `uploads/` |
-| Nombre del archivo | timestamp + extensión original |
-
-La validación aplica tanto a la extensión del archivo como al `mimetype`, evitando que un archivo malicioso se disfrace con una extensión de imagen.
-
-Si la imagen no cumple las reglas, el formulario se vuelve a renderizar con un mensaje de error sin perder los datos escritos.
